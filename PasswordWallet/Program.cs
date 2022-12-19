@@ -59,6 +59,7 @@ builder.Services.AddTransient<ICryptographicService, CryptographicService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<ISavedPasswordService, SavedPasswordService>();
 builder.Services.AddScoped<IUserAccessor, UserAccessor>();
+builder.Services.AddScoped<ILoginAttemptsService, LoginAttemptsService>();
 
 builder.Services.AddControllers(opt =>
 {

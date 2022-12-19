@@ -27,6 +27,11 @@ public class AccountService : IAccountService
         return await _dataContext.Accounts.AnyAsync(x => x.Login == login);
     }
 
+    public async Task<Account?> GetAccount(string login)
+    {
+        return await _dataContext.Accounts.FirstOrDefaultAsync(x => x.Login == login);
+    }
+
     public async Task<AccountDto> Login(LoginDto loginDto)
     {
         var account = await _dataContext.Accounts.FirstAsync(x => x.Login == loginDto.Login);
