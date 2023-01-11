@@ -40,7 +40,7 @@ public class PasswordsController : ControllerBase
         var accountId = _userAccessor.GetUserId();
         if (password == null) return NotFound();
         if (accountId == null) throw new KeyNotFoundException("Account not found");
-        if (password.AccountId != Guid.Parse(accountId)) return Unauthorized();
+        if (password.AccountId != Guid.Parse(accountId)) return Forbid();
 
         await _savedPasswordService.DeletePassword(id);
         return Ok();
@@ -54,7 +54,7 @@ public class PasswordsController : ControllerBase
         var accountId = _userAccessor.GetUserId();
         if (password == null) return NotFound();
         if (accountId == null) throw new KeyNotFoundException("Account not found");
-        if (password.AccountId != Guid.Parse(accountId)) return Unauthorized();
+        if (password.AccountId != Guid.Parse(accountId)) return Forbid();
 
         return await _savedPasswordService.DecryptPassword(id);
     }

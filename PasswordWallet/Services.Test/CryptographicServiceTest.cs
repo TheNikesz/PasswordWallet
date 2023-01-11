@@ -1,9 +1,4 @@
-using NUnit.Framework;
-using NUnit.Framework.Constraints;
-using PasswordWallet.Services;
-using System.Text;
-
-namespace Services.Test;
+namespace PasswordWallet.Services.Test;
 
 public class CryptographicServiceTest
 {

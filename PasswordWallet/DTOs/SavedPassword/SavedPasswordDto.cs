@@ -1,3 +1,5 @@
+using PasswordWallet.DTOs.SharedPassword;
+
 namespace PasswordWallet.DTOs.SavedPassword;
 
 public class SavedPasswordDto
@@ -7,4 +9,5 @@ public class SavedPasswordDto
     public string? Description { get; set; }
     public string? Login { get; set; }
     public Guid AccountId { get; set; }
+    public List<SharedPasswordMiniDto> SharedTo { get; set; }
 }

@@ -1,4 +1,4 @@
-using PasswordManager.Application.Accounts.DAOs;
+using PasswordWallet.DTOs.LoginAttempts;
 
 namespace PasswordWallet.Services;
 

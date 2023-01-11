@@ -1,8 +1,4 @@
-using NUnit.Framework;
-using NUnit.Framework.Constraints;
-using PasswordWallet.Services;
-
-namespace Services.Test;
+namespace PasswordWallet.Services.Test;
 
 public class HashingServiceTest
 {

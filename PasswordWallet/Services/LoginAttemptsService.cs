@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PasswordManager.Application.Accounts.DAOs;
+using PasswordWallet.DTOs.LoginAttempts;
 using PasswordWallet.Entities;
 
 namespace PasswordWallet.Services;
@@ -83,15 +83,15 @@ public class LoginAttemptsService : ILoginAttemptsService
 
         switch (unsuccessfulAttempts)
         {
-            case >= 4:
+            case >= 20:
                 await _context.IpAddressBlocks.AddAsync(new IpAddressBlock
                     { IpAddress = ipAddress, AccountId = accountId });
                 await _context.SaveChangesAsync();
                 return int.MaxValue;
-            case 3:
-                return 10;
-            case 2:
-                return 5;
+            case >= 10:
+                return 500;
+            case >= 5:
+                return 100;
         }
 
         return 0;

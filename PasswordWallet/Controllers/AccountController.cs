@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PasswordManager.Application.Accounts.DAOs;
 using PasswordWallet.DTOs.Account;
+using PasswordWallet.DTOs.LoginAttempts;
 using PasswordWallet.Services;
 
 namespace PasswordWallet.Controllers;
@@ -44,7 +44,7 @@ public class AccountController : ControllerBase
         {
             var lastUnsuccessfulDateTime =
                 await _loginAttemptsService.LastUnsuccessfulLoginAttemptTime(account.Id) ?? DateTime.Now;
-            var blockTimeDelta = DateTime.Now.Subtract(lastUnsuccessfulDateTime).Seconds;
+            var blockTimeDelta = DateTime.Now.Subtract(lastUnsuccessfulDateTime).TotalSeconds;
             if (blockTimeDelta < blockTime)
                 return Unauthorized(
                     $"Too many unsuccessful attempts - account will stay locked for {blockTime - blockTimeDelta}s");
@@ -95,8 +95,8 @@ public class AccountController : ControllerBase
 
         var message = "";
         message += successfulLoginTime == null
-            ? "No successful logins"
-            : $"Last successful login at: {successfulLoginTime}";
+            ? "No successful logins\n"
+            : $"Last successful login at: {successfulLoginTime}\n";
         message += unsuccessfulLoginTime == null
             ? "No unsuccessful logins"
             : $"Last unsuccessful login at: {unsuccessfulLoginTime}";

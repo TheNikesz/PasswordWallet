@@ -12,5 +12,7 @@ public class Account
     [Required][MaxLength(512)]
     public string Salt { get; set; } = null!;
     public bool IsPasswordKeptAsHash { get; set; }
-    public List<SavedPassword> SavedPasswords { get; set; } = new List<SavedPassword>();
+    public ICollection<SavedPassword> SavedPasswords { get; set; } = new List<SavedPassword>();
+    public ICollection<SharedPassword> SharedPasswords { get; set; } = new List<SharedPassword>();
+
 }

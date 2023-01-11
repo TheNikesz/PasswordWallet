@@ -1,4 +1,4 @@
-namespace PasswordManager.Application.Accounts.DAOs;
+namespace PasswordWallet.DTOs.LoginAttempts;
 
 public class IpAddressBlockDao
 {

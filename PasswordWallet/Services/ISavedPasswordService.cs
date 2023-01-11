@@ -9,4 +9,5 @@ public interface ISavedPasswordService
     public Task<SavedPasswordDto> CreatePassword(AddPasswordDto passwordDto);
     public Task DeletePassword(Guid id);
     public Task<string> DecryptPassword(Guid id);
+    public Task<bool> IsOwner(Guid id, Guid accountId);
 }

@@ -15,7 +15,8 @@ public class SavedPasswordService : ISavedPasswordService
     private readonly IUserAccessor _userAccessor;
     private readonly IMapper _mapper;
 
-    public SavedPasswordService(DataBaseContext dataContext, ICryptographicService cryptoService, IHashingService hashService,
+    public SavedPasswordService(DataBaseContext dataContext, ICryptographicService cryptoService,
+        IHashingService hashService,
         IUserAccessor userAccessor, IMapper mapper)
     {
         _dataContext = dataContext;
@@ -54,6 +55,14 @@ public class SavedPasswordService : ISavedPasswordService
         return _cryptoService.Decrypt(savedPassword.Password, masterPasswordBytes, ivBytes);
     }
 
+    public async Task<bool> IsOwner(Guid id, Guid accountId)
+    {
+        var savedPassword = await _dataContext.SavedPasswords.FirstOrDefaultAsync(x => x.Id == id);
+        if (savedPassword == null) throw new Exception();
+
+        return savedPassword.AccountId == accountId;
+    }
+
     public async Task<SavedPasswordDto> CreatePassword(AddPasswordDto passwordDto)
     {
         var accountId = _userAccessor.GetUserId();
@@ -79,7 +88,7 @@ public class SavedPasswordService : ISavedPasswordService
         if (result <= 0) throw new Exception("Error saving new Password to Database");
         return _mapper.Map<SavedPassword, SavedPasswordDto>(savedPassword);
     }
-    
+
 
     public async Task DeletePassword(Guid id)
     {

@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PasswordWallet;
 using PasswordWallet.Services;
+using PasswordWallet.Services.SharedPassword;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +59,7 @@ builder.Services.AddTransient<IHashingService, HashingService>();
 builder.Services.AddTransient<ICryptographicService, CryptographicService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<ISavedPasswordService, SavedPasswordService>();
+builder.Services.AddTransient<ISharedPasswordService, SharedPasswordService>();
 builder.Services.AddScoped<IUserAccessor, UserAccessor>();
 builder.Services.AddScoped<ILoginAttemptsService, LoginAttemptsService>();
 
@@ -114,7 +116,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
